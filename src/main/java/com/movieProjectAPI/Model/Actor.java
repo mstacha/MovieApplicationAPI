@@ -8,7 +8,8 @@ public class Actor {
     private Date birthdate;
     private boolean isMale;
 
-    public Actor() {}
+    public Actor() {
+    }
 
     public Actor(int id, String name, Date birthdate, boolean isMale) {
         this.id = id;
