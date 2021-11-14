@@ -49,6 +49,26 @@ public class JdbcMovieRepository implements MovieRepository{
         return actors;
     }
 
+    public List<Movie> getSpecifiedNumberOfTopMovies(int number){
+        List<Movie> movies = jdbcTemplate.query("SELECT * FROM public.\"Movie\" ORDER BY \"voteAverage\" DESC LIMIT " + number,
+                (rs, rowNum) ->
+                        new Movie(
+                                rs.getInt("id"), rs.getString("originalLanguage"), rs.getString("title"),
+                                rs.getString("overview"), rs.getDate("releaseDate"), rs.getInt("runtime"),
+                                rs.getInt("budget"), rs.getInt("genreId"), rs.getString("posterPath"), rs.getDouble("voteAverage")));
+        return movies;
+    }
+
+    public List<Movie> getSpecifiedNumberOfTopMoviesWithMinRating(double minRating, int number){
+        List<Movie> movies = jdbcTemplate.query("SELECT * FROM public.\"Movie\" WHERE minRating > " + minRating + "ORDER BY \"voteAverage\" DESC LIMIT " + number,
+                (rs, rowNum) ->
+                        new Movie(
+                                rs.getInt("id"), rs.getString("originalLanguage"), rs.getString("title"),
+                                rs.getString("overview"), rs.getDate("releaseDate"), rs.getInt("runtime"),
+                                rs.getInt("budget"), rs.getInt("genreId"), rs.getString("posterPath"), rs.getDouble("voteAverage")));
+        return movies;
+    }
+
 
 
 }

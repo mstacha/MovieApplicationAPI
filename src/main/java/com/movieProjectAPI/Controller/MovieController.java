@@ -40,6 +40,23 @@ public class MovieController {
     @GetMapping("/movies/{movieId}/actors")
     public List<Actor> getAllActorsFromMovie(@PathVariable("movieId") int movieId) { return jdbcMovieRepository.getAllActorsFromMovie(movieId); }
 
+    @GetMapping("/movies/list/topRated/maximumResults/{number}")
+    public List<Movie> getSpecifiedNumberOfTopMovies(@PathVariable("number") int number) {
+        return jdbcMovieRepository.getSpecifiedNumberOfTopMovies(number);
+    }
+
+    @GetMapping("/movies/list/topRated/minRating/{minRating}/maximumResults/{number}")
+    public List<Movie> getSpecifiedNumberOfTopMoviesWithMinRating(@PathVariable("minRating") double minRating, @PathVariable("number") int number) {
+        return jdbcMovieRepository.getSpecifiedNumberOfTopMoviesWithMinRating(minRating, number);
+    }
+
+
+
+
+
+
+
+
 
 
 

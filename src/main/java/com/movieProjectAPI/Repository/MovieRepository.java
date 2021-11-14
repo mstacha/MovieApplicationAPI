@@ -13,4 +13,6 @@ public interface MovieRepository {
     Actor getActorById(int id);
     Review getReviewById(int id);
     List<Actor> getAllActorsFromMovie(int id);
-}
+    List<Movie> getSpecifiedNumberOfTopMovies(int number);
+    List<Movie> getSpecifiedNumberOfTopMoviesWithMinRating(double minRating, int number);
+    }
