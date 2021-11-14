@@ -6,8 +6,10 @@ import com.movieProjectAPI.Model.Movie;
 import com.movieProjectAPI.Model.Review;
 import com.movieProjectAPI.Repository.JdbcMovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -20,19 +22,23 @@ public class MovieController {
     JdbcMovieRepository jdbcMovieRepository;
 
     @GetMapping("/genres/{id}")
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public Genre getGenreById(@PathVariable("id") int id) { return jdbcMovieRepository.getGenreById(id);}
 
     @GetMapping("/movies/{id}")
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public Movie getMovieById(@PathVariable("id") int id) {
         return jdbcMovieRepository.getMovieById(id);
     }
 
     @GetMapping("/actors/{id}")
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public Actor getActorById(@PathVariable("id") int id) {
         return jdbcMovieRepository.getActorById(id);
     }
 
     @GetMapping("/reviews/{id}")
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public Review getReviewById(@PathVariable("id") int id) {
         return jdbcMovieRepository.getReviewById(id);
     }
@@ -40,12 +46,12 @@ public class MovieController {
     @GetMapping("/movies/{movieId}/actors")
     public List<Actor> getAllActorsFromMovie(@PathVariable("movieId") int movieId) { return jdbcMovieRepository.getAllActorsFromMovie(movieId); }
 
-    @GetMapping("/movies/list/topRated/maximumResults/{number}")
+    @GetMapping("/movies/list/topRated/maxResults/{number}")
     public List<Movie> getSpecifiedNumberOfTopMovies(@PathVariable("number") int number) {
         return jdbcMovieRepository.getSpecifiedNumberOfTopMovies(number);
     }
 
-    @GetMapping("/movies/list/topRated/minRating/{minRating}/maximumResults/{number}")
+    @GetMapping("/movies/list/topRated/minRating/{minRating}/maxResults/{number}")
     public List<Movie> getSpecifiedNumberOfTopMoviesWithMinRating(@PathVariable("minRating") double minRating, @PathVariable("number") int number) {
         return jdbcMovieRepository.getSpecifiedNumberOfTopMoviesWithMinRating(minRating, number);
     }
