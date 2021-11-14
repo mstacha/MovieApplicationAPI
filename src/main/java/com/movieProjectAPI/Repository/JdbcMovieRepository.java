@@ -71,7 +71,7 @@ public class JdbcMovieRepository implements MovieRepository{
     }
 
     public List<Movie> getMoviesByTitle(String title){
-        List<Movie> movies = jdbcTemplate.query("SELECT * FROM public.\"Movie\" WHERE LOWER(title) SIMILAR TO '%" + title.toLowerCase() +"%'",
+        List<Movie> movies = jdbcTemplate.query("SELECT * FROM public.\"Movie\" WHERE LOWER(title) SIMILAR TO '%" + title.toLowerCase() +"%' LIMIT 100",
                 (rs, rowNum) ->
                         new Movie(
                                 rs.getInt("id"), rs.getString("originalLanguage"), rs.getString("title"),
@@ -81,7 +81,7 @@ public class JdbcMovieRepository implements MovieRepository{
     }
 
     public List<Movie> getMoviesByGenreName(String genreName){
-        List<Movie> movies = jdbcTemplate.query("SELECT * FROM public.\"Actor\" WHERE public.\"Actor\".id IN (SELECT \"id\" FROM public.\"Genre\" WHERE LOWER(name) SIMILAR TO %" + genreName.toLowerCase() + "%)",
+        List<Movie> movies = jdbcTemplate.query("SELECT * FROM public.\"Actor\" WHERE public.\"Actor\".id IN (SELECT \"id\" FROM public.\"Genre\" WHERE LOWER(name) SIMILAR TO '%" + genreName.toLowerCase() + "%') LIMIT 100",
                 (rs, rowNum) ->
                         new Movie(
                                 rs.getInt("id"), rs.getString("originalLanguage"), rs.getString("title"),
@@ -91,7 +91,7 @@ public class JdbcMovieRepository implements MovieRepository{
     }
 
     public List<Review> getAllReviewsForMovie(int movieId){
-        List<Review> reviews = jdbcTemplate.query("SELECT * FROM public.\"Review\" WHERE public.\"Review\".id =" + movieId,
+        List<Review> reviews = jdbcTemplate.query("SELECT * FROM public.\"Review\" WHERE public.\"Review\".id =" + movieId +" LIMIT 100",
                 (rs, rowNum) ->
                         new Review(
                                 rs.getInt("id"), rs.getInt("movieId"), rs.getString("author"), rs.getString("content")));
