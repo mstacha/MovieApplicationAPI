@@ -15,4 +15,6 @@ public interface MovieRepository {
     List<Actor> getAllActorsFromMovie(int id);
     List<Movie> getSpecifiedNumberOfTopMovies(int number);
     List<Movie> getSpecifiedNumberOfTopMoviesWithMinRating(double minRating, int number);
-    }
+    List<Movie> getMoviesByTitle(String title);
+
+}

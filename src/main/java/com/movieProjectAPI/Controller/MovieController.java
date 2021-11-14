@@ -50,7 +50,10 @@ public class MovieController {
         return jdbcMovieRepository.getSpecifiedNumberOfTopMoviesWithMinRating(minRating, number);
     }
 
-
+    @GetMapping("/movies/list/searchByTitle/{title}")
+    public List<Movie> getSpecifiedNumberOfTopMoviesWithMinRating(@PathVariable("title") String title) {
+        return jdbcMovieRepository.getMoviesByTitle(title);
+    }
 
 
 
