@@ -16,5 +16,6 @@ public interface MovieRepository {
     List<Movie> getSpecifiedNumberOfTopMovies(int number);
     List<Movie> getSpecifiedNumberOfTopMoviesWithMinRating(double minRating, int number);
     List<Movie> getMoviesByTitle(String title);
-
+    List<Movie> getMoviesByGenreName(String genreName);
+    List<Review> getAllReviewsForMovie(int movieId);
 }

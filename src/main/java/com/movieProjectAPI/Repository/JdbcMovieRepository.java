@@ -80,6 +80,25 @@ public class JdbcMovieRepository implements MovieRepository{
         return movies;
     }
 
+    public List<Movie> getMoviesByGenreName(String genreName){
+        List<Movie> movies = jdbcTemplate.query("SELECT * FROM public.\"Actor\" WHERE public.\"Actor\".id IN (SELECT \"id\" FROM public.\"Genre\" WHERE LOWER(name) SIMILAR TO %" + genreName.toLowerCase() + "%)",
+                (rs, rowNum) ->
+                        new Movie(
+                                rs.getInt("id"), rs.getString("originalLanguage"), rs.getString("title"),
+                                rs.getString("overview"), rs.getDate("releaseDate"), rs.getInt("runtime"),
+                                rs.getInt("budget"), rs.getInt("genreId"), rs.getString("posterPath"), rs.getDouble("voteAverage")));
+        return movies;
+    }
+
+    public List<Review> getAllReviewsForMovie(int movieId){
+        List<Review> reviews = jdbcTemplate.query("SELECT * FROM public.\"Review\" WHERE public.\"Review\".id =" + movieId,
+                (rs, rowNum) ->
+                        new Review(
+                                rs.getInt("id"), rs.getInt("movieId"), rs.getString("author"), rs.getString("content")));
+
+        return reviews;
+    }
+
 
 
 }

@@ -51,9 +51,20 @@ public class MovieController {
     }
 
     @GetMapping("/movies/list/searchByTitle/{title}")
-    public List<Movie> getSpecifiedNumberOfTopMoviesWithMinRating(@PathVariable("title") String title) {
+    public List<Movie> getMoviesByTitle(@PathVariable("title") String title) {
         return jdbcMovieRepository.getMoviesByTitle(title);
     }
+
+    @GetMapping("/movies/list/searchByGenreName/{genreName}")
+    public List<Movie> getMoviesByGenre(@PathVariable("genreName") String genreName) {
+        return jdbcMovieRepository.getMoviesByGenreName(genreName);
+    }
+
+    @GetMapping("/movies/{id}/reviews")
+    public List<Review> getAllReviewsForMovie(@PathVariable("id") int id) {
+        return jdbcMovieRepository.getAllReviewsForMovie(id);
+    }
+
 
 
 
