@@ -20,6 +20,9 @@ public class MovieController {
     @Autowired
     JdbcMovieRepository jdbcMovieRepository;
 
+    @GetMapping("/genres")
+    public List<Genre> getGenreById() { return jdbcMovieRepository.getAllGenres();}
+
     @GetMapping("/genres/{id}")
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Genre getGenreById(@PathVariable("id") int id) { return jdbcMovieRepository.getGenreById(id);}
@@ -37,18 +40,18 @@ public class MovieController {
     }
 
 
-    @GetMapping("/movies/list/topRated/maxResults/{number}")
+    @GetMapping("/movies/topRated/maxResults/{number}")
     public List<Movie> getSpecifiedNumberOfTopMovies(@PathVariable("number") int number) {
         return jdbcMovieRepository.getSpecifiedNumberOfTopMovies(number);
     }
 
 
-    @GetMapping("/movies/list/searchByTitle/{title}")
+    @GetMapping("/movies/searchByTitle/{title}")
     public List<Movie> getMoviesByTitle(@PathVariable("title") String title) {
         return jdbcMovieRepository.getMoviesByTitle(title);
     }
 
-    @GetMapping("/movies/list/searchByGenreName/{genreName}")
+    @GetMapping("/movies/searchByGenreName/{genreName}")
     public List<Movie> getMoviesByGenre(@PathVariable("genreName") String genreName) {
         return jdbcMovieRepository.getMoviesByGenreName(genreName);
     }

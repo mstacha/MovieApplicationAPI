@@ -19,6 +19,13 @@ public class JdbcMovieRepository implements MovieRepository{
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    public List<Genre> getAllGenres(){
+        List<Genre> genres = jdbcTemplate.query("SELECT * FROM public.\"genre\"",
+                (rs, rowNum) ->
+                        new Genre(
+                                rs.getInt("id"), rs.getString("name")));
+        return genres;    }
+
     public Genre getGenreById(int id) {
         try{
             Genre genre = jdbcTemplate.queryForObject("SELECT * FROM public.\"genre\" WHERE id=?",

@@ -7,6 +7,7 @@ import com.movieProjectAPI.Model.Review;
 import java.util.List;
 
 public interface MovieRepository {
+    List<Genre> getAllGenres();
     Genre getGenreById(int id);
     Movie getMovieById(int id);
     Review getReviewById(String id);
@@ -16,3 +17,4 @@ public interface MovieRepository {
     List<Review> getAllReviewsForMovie(int movieId);
 
 }
+
