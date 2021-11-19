@@ -1,34 +1,34 @@
 package com.movieProjectAPI.Model;
 
 public class Review {
-    private int id;
-    private int movieId;
+    private String id;
+    private int movie_id;
     private String author;
     private String content;
 
     public Review() {}
 
-    public Review(int id, int movieId, String author, String content) {
+    public Review(String id, int movie_id, String author, String content) {
         this.id = id;
-        this.movieId = movieId;
+        this.movie_id = movie_id;
         this.author = author;
         this.content = content;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     public int getMovieId() {
-        return movieId;
+        return movie_id;
     }
 
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
+    public void setMovieId(int movie_id) {
+        this.movie_id = movie_id;
     }
 
     public String getAuthor() {

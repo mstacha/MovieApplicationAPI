@@ -4,29 +4,25 @@ import java.util.Date;
 
 public class Movie {
     private int id;
-    private String originalLanguage;
+    private String original_language;
     private String title;
     private String overview;
-    private Date releaseDate;
-    private int runtime;
-    private int budget;
-    private int genreId;
-    private String posterPath;
-    private double voteAverage;
+    private Date release_date;
+    private String poster_path;
+    private double vote_average;
+    private int genre_id;
 
-    public Movie() {}
+    public Movie(){}
 
-    public Movie(int id, String originalLanguage, String title, String overview, Date releaseDate, int runtime, int budget, int genreId, String posterPath, double voteAverage) {
+    public Movie(int id, String original_language, String title, String overview, Date release_date, String poster_path, double vote_average, int genre_id) {
         this.id = id;
-        this.originalLanguage = originalLanguage;
+        this.original_language = original_language;
         this.title = title;
         this.overview = overview;
-        this.releaseDate = releaseDate;
-        this.runtime = runtime;
-        this.budget = budget;
-        this.genreId = genreId;
-        this.posterPath = posterPath;
-        this.voteAverage = voteAverage;
+        this.release_date = release_date;
+        this.poster_path = poster_path;
+        this.vote_average = vote_average;
+        this.genre_id = genre_id;
     }
 
     public int getId() {
@@ -37,12 +33,12 @@ public class Movie {
         this.id = id;
     }
 
-    public String getOriginalLanguage() {
-        return originalLanguage;
+    public String getOriginal_language() {
+        return original_language;
     }
 
-    public void setOriginalLanguage(String originalLanguage) {
-        this.originalLanguage = originalLanguage;
+    public void setOriginal_language(String original_language) {
+        this.original_language = original_language;
     }
 
     public String getTitle() {
@@ -61,51 +57,35 @@ public class Movie {
         this.overview = overview;
     }
 
-    public Date getReleaseDate() {
-        return releaseDate;
+    public Date getRelease_date() {
+        return release_date;
     }
 
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setRelease_date(Date release_date) {
+        this.release_date = release_date;
     }
 
-    public int getRuntime() {
-        return runtime;
+    public String getPoster_path() {
+        return poster_path;
     }
 
-    public void setRuntime(int runtime) {
-        this.runtime = runtime;
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
     }
 
-    public int getBudget() {
-        return budget;
+    public double getVote_average() {
+        return vote_average;
     }
 
-    public void setBudget(int budget) {
-        this.budget = budget;
+    public void setVote_average(double vote_average) {
+        this.vote_average = vote_average;
     }
 
-    public int getGenreId() {
-        return genreId;
+    public int getGenre_id() {
+        return genre_id;
     }
 
-    public void setGenreId(int genreId) {
-        this.genreId = genreId;
-    }
-
-    public String getPosterPath() {
-        return posterPath;
-    }
-
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
-    }
-
-    public double getVoteAverage() {
-        return voteAverage;
-    }
-
-    public void setVoteAverage(double voteAverage) {
-        this.voteAverage = voteAverage;
+    public void setGenre_id(int genre_id) {
+        this.genre_id = genre_id;
     }
 }

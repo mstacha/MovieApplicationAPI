@@ -1,6 +1,5 @@
 package com.movieProjectAPI.Controller;
 
-import com.movieProjectAPI.Model.Actor;
 import com.movieProjectAPI.Model.Genre;
 import com.movieProjectAPI.Model.Movie;
 import com.movieProjectAPI.Model.Review;
@@ -31,30 +30,18 @@ public class MovieController {
         return jdbcMovieRepository.getMovieById(id);
     }
 
-    @GetMapping("/actors/{id}")
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Actor getActorById(@PathVariable("id") int id) {
-        return jdbcMovieRepository.getActorById(id);
-    }
-
     @GetMapping("/reviews/{id}")
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Review getReviewById(@PathVariable("id") int id) {
+    public Review getReviewById(@PathVariable("id") String id) {
         return jdbcMovieRepository.getReviewById(id);
     }
 
-    @GetMapping("/movies/{movieId}/actors")
-    public List<Actor> getAllActorsFromMovie(@PathVariable("movieId") int movieId) { return jdbcMovieRepository.getAllActorsFromMovie(movieId); }
 
     @GetMapping("/movies/list/topRated/maxResults/{number}")
     public List<Movie> getSpecifiedNumberOfTopMovies(@PathVariable("number") int number) {
         return jdbcMovieRepository.getSpecifiedNumberOfTopMovies(number);
     }
 
-    @GetMapping("/movies/list/topRated/minRating/{minRating}/maxResults/{number}")
-    public List<Movie> getSpecifiedNumberOfTopMoviesWithMinRating(@PathVariable("minRating") double minRating, @PathVariable("number") int number) {
-        return jdbcMovieRepository.getSpecifiedNumberOfTopMoviesWithMinRating(minRating, number);
-    }
 
     @GetMapping("/movies/list/searchByTitle/{title}")
     public List<Movie> getMoviesByTitle(@PathVariable("title") String title) {
