@@ -3,6 +3,7 @@ package com.movieProjectAPI.Repository;
 import com.movieProjectAPI.Model.Genre;
 import com.movieProjectAPI.Model.Movie;
 import com.movieProjectAPI.Model.Review;
+import com.movieProjectAPI.Model.Actor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -52,6 +53,19 @@ public class JdbcMovieRepository implements MovieRepository{
         }
     }
 
+    public Actor getActorById(int id) {
+        try {
+            Actor actor = jdbcTemplate.queryForObject("SELECT * FROM public.\"actor\" WHERE id=?",
+                    BeanPropertyRowMapper.newInstance(Actor.class), id);
+            return actor;
+        }
+        catch(EmptyResultDataAccessException e){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "actor not found"
+            );
+        }
+    }
+
     public Review getReviewById(String id) {
         try {
             Review review = jdbcTemplate.queryForObject("SELECT * FROM public.\"review\" WHERE id=?",
@@ -65,7 +79,13 @@ public class JdbcMovieRepository implements MovieRepository{
         }
     }
 
-
+    public List<Actor> getAllActorsFromMovie(int movieId){
+        List<Actor> actors = jdbcTemplate.query("SELECT * FROM public.\"actor\" WHERE public.\"actor\".id IN (SELECT \"actor_id\" FROM public.\"acts_in\" WHERE \"movie_id\"=" + movieId + ")",
+                (rs, rowNum) ->
+                        new Actor(
+                                rs.getInt("id"), rs.getString("name"), rs.getString("gender")));
+        return actors;
+    }
 
     public List<Movie> getSpecifiedNumberOfTopMovies(int number){
         List<Movie> movies = jdbcTemplate.query("SELECT * FROM public.\"movie\" ORDER BY \"vote_average\" DESC LIMIT " + number,
