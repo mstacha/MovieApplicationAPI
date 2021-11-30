@@ -42,7 +42,9 @@ public class JdbcMovieRepository implements MovieRepository{
 
     public Movie getMovieById(int id) {
         try {
-            Movie movie = jdbcTemplate.queryForObject("SELECT * FROM public.\"movie\" WHERE id=?",
+            Movie movie = jdbcTemplate.queryForObject("SELECT public.\"movie\".id, public.\"movie\".original_language, " +
+                            "public.\"movie\".title, public.\"movie\".overview, public.\"movie\".release_date, public.\"movie\".poster_path, " +
+                            "public.\"movie\".vote_average, public.\"movie\".genre_id, public.\"genre\".name AS genre_name FROM public.\"movie\" LEFT JOIN public.\"genre\" ON public.\"movie\".genre_id = public.\"genre\".id WHERE public.\"movie\".id=?",
                     BeanPropertyRowMapper.newInstance(Movie.class), id);
             return movie;
         }
@@ -88,34 +90,34 @@ public class JdbcMovieRepository implements MovieRepository{
     }
 
     public List<Movie> getSpecifiedNumberOfTopMovies(int number){
-        List<Movie> movies = jdbcTemplate.query("SELECT * FROM public.\"movie\" ORDER BY \"vote_average\" DESC LIMIT " + number,
+        List<Movie> movies = jdbcTemplate.query("SELECT * FROM public.\"movie\" LEFT JOIN public.\"genre\" ON public.\"movie\".genre_id = public.\"genre\".id ORDER BY \"vote_average\" DESC LIMIT " + number,
                 (rs, rowNum) ->
                         new Movie(
                                 rs.getInt("id"), rs.getString("original_language"), rs.getString("title"),
                                 rs.getString("overview"), rs.getDate("release_date"),
-                                rs.getString("poster_path"), rs.getDouble("vote_average"), rs.getInt("genre_id")));
+                                rs.getString("poster_path"), rs.getDouble("vote_average"), rs.getInt("genre_id"), rs.getString("name")));
         return movies;
     }
 
 
 
     public List<Movie> getMoviesByTitle(String title){
-        List<Movie> movies = jdbcTemplate.query("SELECT * FROM public.\"movie\" WHERE LOWER(title) SIMILAR TO '%" + title.toLowerCase() +"%' LIMIT 100",
+        List<Movie> movies = jdbcTemplate.query("SELECT * FROM public.\"movie\" LEFT JOIN public.\"genre\" ON public.\"movie\".genre_id = public.\"genre\".id WHERE LOWER(title) SIMILAR TO '%" + title.toLowerCase() +"%' LIMIT 100",
                 (rs, rowNum) ->
                         new Movie(
                                 rs.getInt("id"), rs.getString("original_language"), rs.getString("title"),
                                 rs.getString("overview"), rs.getDate("release_date"),
-                                rs.getString("poster_path"), rs.getDouble("vote_average"), rs.getInt("genre_id")));
+                                rs.getString("poster_path"), rs.getDouble("vote_average"), rs.getInt("genre_id"), rs.getString("name")));
         return movies;
     }
 
     public List<Movie> getMoviesByGenreName(String genreName){
-        List<Movie> movies = jdbcTemplate.query("SELECT * FROM public.\"movie\" WHERE \"genre_id\" = (SELECT \"id\" FROM public.\"genre\" WHERE LOWER(name) SIMILAR TO '%" + genreName.toLowerCase() + "%') LIMIT 100",
+        List<Movie> movies = jdbcTemplate.query("SELECT * FROM public.\"movie\" LEFT JOIN public.\"genre\" ON public.\"movie\".genre_id = public.\"genre\".id WHERE \"genre_id\" = (SELECT \"id\" FROM public.\"genre\" WHERE LOWER(name) SIMILAR TO '%" + genreName.toLowerCase() + "%') LIMIT 100",
                 (rs, rowNum) ->
                         new Movie(
                                 rs.getInt("id"), rs.getString("original_language"), rs.getString("title"),
                                 rs.getString("overview"), rs.getDate("release_date"),
-                                rs.getString("poster_path"), rs.getDouble("vote_average"), rs.getInt("genre_id")));
+                                rs.getString("poster_path"), rs.getDouble("vote_average"), rs.getInt("genre_id"), rs.getString("name")));
         return movies;
     }
 

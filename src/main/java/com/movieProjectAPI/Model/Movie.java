@@ -11,10 +11,11 @@ public class Movie {
     private String poster_path;
     private double vote_average;
     private int genre_id;
+    private String genre_name;
 
     public Movie(){}
 
-    public Movie(int id, String original_language, String title, String overview, Date release_date, String poster_path, double vote_average, int genre_id) {
+    public Movie(int id, String original_language, String title, String overview, Date release_date, String poster_path, double vote_average, int genre_id, String genre_name) {
         this.id = id;
         this.original_language = original_language;
         this.title = title;
@@ -23,6 +24,7 @@ public class Movie {
         this.poster_path = poster_path;
         this.vote_average = vote_average;
         this.genre_id = genre_id;
+        this.genre_name = genre_name;
     }
 
     public int getId() {
@@ -87,5 +89,13 @@ public class Movie {
 
     public void setGenre_id(int genre_id) {
         this.genre_id = genre_id;
+    }
+
+    public String getGenre_name() {
+        return genre_name;
+    }
+
+    public void setGenre_name(String genre_name) {
+        this.genre_name = genre_name;
     }
 }
